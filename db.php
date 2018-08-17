@@ -1,25 +1,18 @@
 <?php
-$dsn = "mysql:host=localhost;dbname=phpclassspring2018";
-$userName = "PHPClassSpring2018";
-$pWord = "SE266";
-try {
-	$db = new PDO($dsn, $userName, $pWord); 
-} catch (PDOExeption $e) {
-	die("Cannot connect to the database");
-}
-
 if (!function_exists('curl_init')){
 	throw new Exception('CURL is required to run the Nutritionix PHP API.');
+} catch (Exception $e) {
+	echo 'Error: ' , $e->getMessage(), "\n";
 }
 
 if (!function_exists('json_decode')){
 	throw new Exception('JSON Extension is required to run the Nutritionix PHP API.');
-}
+} echo 'Error: ' , $e->getMessage(), "\n";
 
 class Nutritionix
 {
 	private $app_id = "6d9373c3";
-	private $apikey = $"09c9c677f4aa0566fb208008b2919dbf";
+	private $apikey = "09c9c677f4aa0566fb208008b2919dbf";
 	private $api_url = "http://api.nutritionix.com/v1_1/";
 	
 	public function __construct ($app_id, $api_key){
@@ -32,5 +25,7 @@ class Nutritionix
  * The dev needs to make sure that the json result is returned with a json header,
  *  the api lib just returns the json string value
  * @return The search results array or json string depending on the return Json value*/
+
+
 ?>
 
