@@ -7,7 +7,9 @@ if (!function_exists('curl_init')){
 
 if (!function_exists('json_decode')){
 	throw new Exception('JSON Extension is required to run the Nutritionix PHP API.');
-} echo 'Error: ' , $e->getMessage(), "\n";
+} catch (Exception $e) {
+	echo 'Error: ' , $e->getMessage(), "\n";
+}
 
 class Nutritionix
 {
@@ -20,12 +22,26 @@ class Nutritionix
 		$this->api_key = $api_key;		
 	}
 	
-/** A null parameter will return the following item fields only: item_name, brand_name, item_id.
-* NOTE-- passing "*" as a value will return all item fields.
- * The dev needs to make sure that the json result is returned with a json header,
- *  the api lib just returns the json string value
- * @return The search results array or json string depending on the return Json value*/
+	/** A null parameter will return the following item fields only: item_name, brand_name, item_id.
+	* NOTE-- passing "*" as a value will return all item fields.
+	 * The dev needs to make sure that the json result is returned with a json header,
+	 *  the api lib just returns the json string value
+	 * @return The search results array or json string depending on the return Json value*/
+	
+	public function search($item, $returnJson = false)
+	{
+		return $this->makeQueryRequest('search', urlencode($item),
+			array(
+				'fields' => $fields,
+				'brand_id' => $brandID,
+				), $returnJson);
+	}
 
+	public function getItem($id, $returnJson = false)
+	{
+		return $this->makeQueryRequest('item', urlencode($id), array(), $returnJson);
+	}
+}
 
 ?>
 
